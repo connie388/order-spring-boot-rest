@@ -1,6 +1,7 @@
 package com.rest.order.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.rest.order.exception.InvalidInputException;
 import com.rest.order.exception.ResourceAlreadyExistsException;
 import com.rest.order.exception.ResourceNotFoundException;
+import com.rest.order.model.Order;
 import com.rest.order.model.OrderDetail;
 import com.rest.order.repository.OrderDetailRepository;
 import com.rest.order.repository.OrderRepository;
@@ -45,20 +47,32 @@ public class OrderDetailService {
         return orderDetailRepository.findOrderDetailByOrderNumber(orderNumber);
     }
 
-    public OrderDetail add(OrderDetail orderDetail) {
-        OrderDetail existingOrderDetail = orderDetailRepository.findOrderDetailByOrderNumberAndProductCode(
-                orderDetail.getOrderNumber(),
-                orderDetail.getProductCode());
-        if (existingOrderDetail != null)
-            throw new ResourceAlreadyExistsException("Order Detail already exists.");
+    public OrderDetail add(Integer orderNumber, OrderDetail orderDetail) {
+        if (null == orderNumber)
+            throw new InvalidInputException("Invalid Order Number.");
 
-        if (orderRepository.findById(orderDetail.getOrderNumber()).isEmpty())
-            throw new ResourceNotFoundException("Invalid Order Number");
+        Optional<Order> _order = orderRepository.findById(orderNumber);
+        if (_order.isEmpty())
+            throw new ResourceNotFoundException("Order record not found");
+        Order thisOrder = _order.get();
 
         if (productRepository.findByProductCode(orderDetail.getProductCode()) == null)
             throw new ResourceNotFoundException("Invalid Product Code");
-
+        orderDetail.setOrder(thisOrder);
         return orderDetailRepository.save(orderDetail);
+    }
+
+    public List<OrderDetail> add(Integer orderNumber, List<OrderDetail> items) {
+        if (null == orderNumber)
+            throw new InvalidInputException("Invalid Order Number.");
+
+        Optional<Order> _order = orderRepository.findById(orderNumber);
+        if (_order.isEmpty())
+            throw new ResourceNotFoundException("Order record not found");
+        Order thisOrder = _order.get();
+        for (OrderDetail item : items)
+            item.setOrder(thisOrder);
+        return orderDetailRepository.saveAll(items);
     }
 
     public OrderDetail update(Integer orderNumber, String productCode, OrderDetail orderDetail) {
@@ -87,5 +101,15 @@ public class OrderDetailService {
             throw new ResourceNotFoundException("Order Detail record not found");
         orderDetailRepository.delete(_orderDetail);
         return "Order Detail is deleted successfully";
+    }
+
+    public String delete(Integer orderNumber) {
+        if (null == orderNumber)
+            throw new InvalidInputException("Invalid Order Number.");
+        List<OrderDetail> _orderDetailList = orderDetailRepository.findOrderDetailByOrderNumber(orderNumber);
+        if (_orderDetailList == null)
+            throw new ResourceNotFoundException("Order Detail records not found");
+        orderDetailRepository.deleteAll(_orderDetailList);
+        return "Order Detail records for Order Number " + orderNumber + " are deleted successfully";
     }
 }

@@ -52,10 +52,8 @@ public class Order extends AuditModel {
     @Column(name = "comments", length = 4000)
     private String comments;
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customerNumber", referencedColumnName = "customerNumber", nullable = false)
+    @JoinColumn(name = "customerNumber", insertable = false, updatable = false, nullable = false)
     @JsonIgnore
     private Customer customer;
-
 }

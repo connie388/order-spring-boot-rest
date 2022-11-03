@@ -65,15 +65,4 @@ public class OrderService {
         thisOrder.setComments(order.getComments());
         return orderRepository.save(thisOrder);
     }
-
-    public String delete(Integer orderNumber) {
-        if (null == orderNumber)
-            throw new InvalidInputException("Invalid Order Number.");
-
-        Optional<Order> _order = orderRepository.findById(orderNumber);
-        if (_order.isEmpty())
-            throw new ResourceNotFoundException("Order record not found");
-        orderRepository.delete(_order.get());
-        return "Order is deleted successfully";
-    }
 }

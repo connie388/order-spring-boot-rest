@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,10 +55,5 @@ public class OrderController {
     public ResponseEntity<Order> update(@PathVariable("orderNumber") Integer orderNumber,
             @RequestBody Order order) {
         return new ResponseEntity<>(orderService.update(orderNumber, order), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/order/{orderNumber}")
-    public ResponseEntity<?> delete(@PathVariable("orderNumber") Integer orderNumber) {
-        return new ResponseEntity<>(orderService.delete(orderNumber), HttpStatus.OK);
     }
 }

@@ -38,9 +38,16 @@ public class OrderDetailController {
         return new ResponseEntity<OrderDetail>(orderDetailService.get(orderNumber, productCode), HttpStatus.OK);
     }
 
-    @PostMapping("/orderdetail")
-    public ResponseEntity<OrderDetail> add(@RequestBody OrderDetail orderDetail) {
-        return new ResponseEntity<>(orderDetailService.add(orderDetail), HttpStatus.CREATED);
+    @PostMapping("/orderdetail/{orderNumber}")
+    public ResponseEntity<OrderDetail> add(@PathVariable("orderNumber") Integer orderNumber,
+            @RequestBody OrderDetail orderDetail) {
+        return new ResponseEntity<>(orderDetailService.add(orderNumber, orderDetail), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/orderdetail/{orderNumber}/list")
+    public ResponseEntity<List<OrderDetail>> add(@PathVariable("orderNumber") Integer orderNumber,
+            @RequestBody List<OrderDetail> orderDetails) {
+        return new ResponseEntity<>(orderDetailService.add(orderNumber, orderDetails), HttpStatus.CREATED);
     }
 
     @PutMapping("/orderdetail/{orderNumber}/{productCode}")
@@ -49,9 +56,14 @@ public class OrderDetailController {
         return new ResponseEntity<>(orderDetailService.update(orderNumber, productCode, orderDetail), HttpStatus.OK);
     }
 
-    @DeleteMapping("/orderdetail/{customerNumber}/{checkNumber}")
-    public ResponseEntity<?> delete(@PathVariable("customerNumber") Integer customerNumber,
-            @PathVariable("checkNumber") String checkNumber) {
-        return new ResponseEntity<>(orderDetailService.delete(customerNumber, checkNumber), HttpStatus.OK);
+    @DeleteMapping("/orderdetail/{orderNumber}/{productCode}")
+    public ResponseEntity<?> delete(@PathVariable("orderNumber") Integer orderNumber,
+            @PathVariable("productCode") String productCode) {
+        return new ResponseEntity<>(orderDetailService.delete(orderNumber, productCode), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/orderdetail/{orderNumber}")
+    public ResponseEntity<?> delete(@PathVariable("orderNumber") Integer orderNumber) {
+        return new ResponseEntity<>(orderDetailService.delete(orderNumber), HttpStatus.OK);
     }
 }
