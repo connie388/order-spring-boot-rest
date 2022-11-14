@@ -28,7 +28,7 @@ public class CustomerService {
 
     public List<Customer> list(String name) {
         List<Customer> customers = new ArrayList<Customer>();
-
+        
         if (name == null)
             customerRepository.findAll().forEach(customers::add);
         else

@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -52,6 +51,8 @@ public class Order extends AuditModel {
     @Column(name = "comments", length = 4000)
     private String comments;
 
+    @Column(name = "customerNumber", insertable = false, updatable = false)
+    private int customerNumber;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customerNumber", insertable = false, updatable = false, nullable = false)
     @JsonIgnore

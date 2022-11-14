@@ -21,11 +21,15 @@ public class ProductService {
     @Autowired
     private ProductLineRepository productLineRepository;
 
-    public Product add(String productLine, Product productInfo) {
-        if (productLine == null) {
-            throw new InvalidInputException("Product Line is not valid");
+    public Product add(Product productInfo) {
+        if (productInfo == null) {
+            throw new InvalidInputException("Product Information is empty");
         }
-        ProductLine _productLine = productLineRepository.findByProductLine(productLine);
+
+        if (productInfo.getProductLine() == null) {
+            throw new InvalidInputException("Product Line is invalid");
+        }
+        ProductLine _productLine = productLineRepository.findByProductLine(productInfo.getProductLine());
         if (_productLine == null)
             throw new ResourceNotFoundException("Product Line no found.");
         productInfo.setProdLine(_productLine);
@@ -40,6 +44,12 @@ public class ProductService {
         if (null == productCode)
             throw new InvalidInputException("Invalid Product Code");
         return productRepository.findByProductCode(productCode);
+    }
+
+    public List<Product> getByProductLine(String productLine) {
+        if (null == productLine)
+            throw new InvalidInputException("Invalid Product Line");
+        return productRepository.findByProductLine(productLine);
     }
 
     public String delete(String productCode) {

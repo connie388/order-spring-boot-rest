@@ -29,4 +29,17 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
         List<Order> orders = entityManager.createQuery(criteriaQuery).getResultList();
         return orders;
     }
+
+    @Override
+    public List<Order> findOrderByIdAndRequiredDateRange(Integer id, Date fromDate, Date toDate) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
+        Root<Order> root = criteriaQuery.from(Order.class);
+        Predicate customerPredicate = criteriaBuilder.equal(root.get("customerNumber"), id);
+        Predicate dateRangePredicate = criteriaBuilder.between(root.get("requiredDate"), fromDate, toDate);
+
+        criteriaQuery.select(root).where(customerPredicate, dateRangePredicate);
+        List<Order> orders = entityManager.createQuery(criteriaQuery).getResultList();
+        return orders;
+    }
 }

@@ -1,6 +1,5 @@
 package com.rest.order.model;
 
-import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,9 +36,9 @@ public class ProductLine extends AuditModel {
   @Column(name = "htmlDescription", columnDefinition = "MEDIUMTEXT")
   private String htmlDesc;
 
-  @Column(name = "image")
+  @Column(name = "imageUrl")
   @Lob
-  private Blob image;
+  private String imageUrl;
 
   @Setter(AccessLevel.NONE)
   @Getter(AccessLevel.NONE)

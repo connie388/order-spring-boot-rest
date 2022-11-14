@@ -44,6 +44,16 @@ public class OrderService {
         return orderRepository.findOrderByRequiredDateRange(fromDate, toDate);
     }
 
+    public List<Order> get(Integer id, Date fromDate, Date toDate) {
+        if (null == id) 
+            throw new InvalidInputException("Invalid Customer Id");
+        if (null == fromDate)
+            throw new InvalidInputException("Invalid From Date.");
+        if (null == toDate)
+            throw new InvalidInputException("Invalid To Date.");
+        return orderRepository.findOrderByIdAndRequiredDateRange(id, fromDate, toDate);
+    }
+
     public Order add(Order order) {
         return orderRepository.save(order);
     }

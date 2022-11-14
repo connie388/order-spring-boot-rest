@@ -9,5 +9,7 @@ import com.rest.order.model.Product;
 public interface ProductRepository extends JpaRepository<Product, String> {
     Product findByProductCode(String productCode);
 
+    List<Product> findByProductLine(String productLine);
+
     List<Product> findByProductNameContaining(String productName);
 }

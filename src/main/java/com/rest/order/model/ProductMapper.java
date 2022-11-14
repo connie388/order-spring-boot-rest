@@ -20,7 +20,7 @@ public class ProductMapper implements RowMapper<Product> {
         productLine.setProductLine(resultSet.getString("productLine"));
         productLine.setHtmlDesc(resultSet.getString("htmlDescription"));
         productLine.setTextDesc(resultSet.getString("textDescription"));
-        productLine.setImage(resultSet.getBlob("image"));
+        productLine.setImageUrl(resultSet.getString("imageUrl"));
         product.setProdLine(productLine);
         return product;
     }

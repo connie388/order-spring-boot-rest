@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rest.order.exception.InvalidInputException;
-import com.rest.order.exception.ResourceAlreadyExistsException;
 import com.rest.order.exception.ResourceNotFoundException;
 import com.rest.order.model.Order;
 import com.rest.order.model.OrderDetail;

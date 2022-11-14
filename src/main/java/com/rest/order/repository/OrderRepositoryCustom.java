@@ -7,4 +7,6 @@ import com.rest.order.model.Order;
 
 public interface OrderRepositoryCustom {
     List<Order> findOrderByRequiredDateRange( Date fromDate, Date toDate);
+    List<Order> findOrderByIdAndRequiredDateRange( Integer id, Date fromDate, Date toDate);
+
 }

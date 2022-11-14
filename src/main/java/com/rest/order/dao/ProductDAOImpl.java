@@ -15,8 +15,8 @@ public class ProductDAOImpl implements ProductDAO {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    private final String SQL_FIND_PRODUCT = "SELECT pl.productLine, pl.textDescription, pl.htmlDescription, pl.image, p.productCode, p.productName, p.productScale, p.productVendor, p.productDescription, p.quantityInStock, p.buyPrice, p.MSRP  FROM productlines pl, products p where p.productline = pl.productline and p.productCode = ?";
-    private final String SQL_GET_ALL = "SELECT pl.productLine, pl.textDescription, pl.htmlDescription, pl.image, p.productCode, p.productName, p.productScale, p.productVendor, p.productDescription, p.quantityInStock, p.buyPrice, p.MSRP  FROM productlines pl, products p where p.productline = pl.productline;";
+    private final String SQL_FIND_PRODUCT = "SELECT pl.productLine, pl.textDescription, pl.htmlDescription, pl.imageUrl, p.productCode, p.productName, p.productScale, p.productVendor, p.productDescription, p.quantityInStock, p.buyPrice, p.MSRP  FROM productlines pl, products p where p.productline = pl.productline and p.productCode = ?";
+    private final String SQL_GET_ALL = "SELECT pl.productLine, pl.textDescription, pl.htmlDescription, pl.imageUrl, p.productCode, p.productName, p.productScale, p.productVendor, p.productDescription, p.quantityInStock, p.buyPrice, p.MSRP  FROM productlines pl, products p where p.productline = pl.productline;";
 
     @Autowired
     public ProductDAOImpl(DataSource dataSource) {

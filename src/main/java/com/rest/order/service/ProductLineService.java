@@ -26,6 +26,13 @@ public class ProductLineService {
         return productLineRepository.findAll();
     }
 
+    public ProductLine get(String productLine) {
+        if (null == productLine)
+            throw new InvalidInputException("Invalid Product Line");
+
+        return productLineRepository.findByProductLine(productLine);
+    }
+
     public String delete(String productLine) {
         if (null == productLine)
             throw new InvalidInputException("Invalid Product Line");
@@ -47,7 +54,7 @@ public class ProductLineService {
             throw new ResourceNotFoundException("Product Line " + productLine + " not found.");
         _productLine.setTextDesc(productLineInfo.getTextDesc());
         _productLine.setHtmlDesc(productLineInfo.getHtmlDesc());
-        _productLine.setImage(productLineInfo.getImage());
+        _productLine.setImageUrl(productLineInfo.getImageUrl());
         return productLineRepository.save(_productLine);
     }
 }
