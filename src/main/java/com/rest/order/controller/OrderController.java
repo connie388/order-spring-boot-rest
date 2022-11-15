@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rest.order.model.Order;
@@ -51,12 +52,12 @@ public class OrderController {
         return new ResponseEntity<List<Order>>(orderService.get(fromDate, toDate), HttpStatus.OK);
     }
 
-    @GetMapping("{id}/order/{fromDate}/{toDate}")
+    @GetMapping("{customerNo}/order")
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<List<Order>> get(@PathVariable Integer id,
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate) {
-        return new ResponseEntity<List<Order>>(orderService.get(id, fromDate, toDate), HttpStatus.OK);
+    public ResponseEntity<List<Order>> get(@PathVariable Integer customerNo,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate) {
+        return new ResponseEntity<List<Order>>(orderService.get(customerNo, fromDate, toDate), HttpStatus.OK);
     }
 
     @PostMapping("/order")

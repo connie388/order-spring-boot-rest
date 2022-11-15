@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import com.rest.order.model.Order;
 
 public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
@@ -31,14 +30,24 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     }
 
     @Override
-    public List<Order> findOrderByIdAndRequiredDateRange(Integer id, Date fromDate, Date toDate) {
+    public List<Order> findOrderByIdAndRequiredDateRange(Integer customerNo,
+            Date fromDate,
+            Date toDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
         Root<Order> root = criteriaQuery.from(Order.class);
-        Predicate customerPredicate = criteriaBuilder.equal(root.get("customerNumber"), id);
-        Predicate dateRangePredicate = criteriaBuilder.between(root.get("requiredDate"), fromDate, toDate);
+        Predicate conditions = criteriaBuilder.equal(root.get("customerNumber"), customerNo);
 
-        criteriaQuery.select(root).where(customerPredicate, dateRangePredicate);
+        if (fromDate != null) {
+            Predicate startPredicate = criteriaBuilder.greaterThanOrEqualTo(root.<Date>get("orderDate"), fromDate);
+            conditions = criteriaBuilder.and(conditions, startPredicate);
+        }
+        if (toDate != null) {
+            Predicate endPredicate = criteriaBuilder.lessThanOrEqualTo(root.<Date>get("orderDate"), toDate);
+            conditions = criteriaBuilder.and(conditions, endPredicate);
+        }
+
+        criteriaQuery.select(root).where(conditions);
         List<Order> orders = entityManager.createQuery(criteriaQuery).getResultList();
         return orders;
     }
