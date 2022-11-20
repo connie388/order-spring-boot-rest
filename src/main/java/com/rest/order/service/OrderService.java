@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.rest.order.exception.InvalidInputException;
 import com.rest.order.exception.ResourceNotFoundException;
 import com.rest.order.model.Order;
+import com.rest.order.model.OrderCustomerDTO;
 import com.rest.order.repository.OrderRepository;
 
 @Service
@@ -48,6 +49,12 @@ public class OrderService {
         if (null == id)
             throw new InvalidInputException("Invalid Customer Id");
         return orderRepository.findOrderByIdAndRequiredDateRange(id, fromDate, toDate);
+    }
+
+    public List<OrderCustomerDTO> get(String customerNameLike, Date fromDate, Date toDate) {
+        List<OrderCustomerDTO> list = orderRepository.fetchCustomerOrders(customerNameLike);
+        list.forEach(l -> System.out.println(l));
+        return list;
     }
 
     public Order add(Order order) {

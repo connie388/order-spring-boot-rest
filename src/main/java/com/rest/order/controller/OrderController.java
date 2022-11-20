@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rest.order.model.Order;
+import com.rest.order.model.OrderCustomerDTO;
 import com.rest.order.service.OrderService;
 
 @RestController
@@ -58,6 +59,15 @@ public class OrderController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate) {
         return new ResponseEntity<List<Order>>(orderService.get(customerNo, fromDate, toDate), HttpStatus.OK);
+    }
+
+    @GetMapping("/order/customer")
+    @CrossOrigin(origins = "http://localhost:8081")
+    public ResponseEntity<List<OrderCustomerDTO>> get(@RequestParam(required = false) String customerNameLike,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate) {
+        return new ResponseEntity<List<OrderCustomerDTO>>(orderService.get(customerNameLike, fromDate, toDate),
+                HttpStatus.OK);
     }
 
     @PostMapping("/order")

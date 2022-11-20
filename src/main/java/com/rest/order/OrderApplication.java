@@ -17,5 +17,4 @@ public class OrderApplication {
 		log.info("Start Applicaction");
 		SpringApplication.run(OrderApplication.class, args);
 	}
-
 }
