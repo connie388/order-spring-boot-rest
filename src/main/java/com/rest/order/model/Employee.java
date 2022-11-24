@@ -1,17 +1,28 @@
 package com.rest.order.model;
 
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.AccessLevel;
 
 @ToString
 @Setter
@@ -28,16 +39,24 @@ public class Employee extends AuditModel {
     @Column(name = "employeeNumber", nullable = false)
     private Integer employeeNumber;
 
-    @Column(name = "lastName", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "firstName", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "extension", nullable = false, length = 10)
+    @NotNull
+    @Size(max = 10)
+    @Column(name = "extension")
     private String extension;
 
-    @Column(name = "email", nullable = false, length = 100)
+    @NotNull
+    @Size(max = 100)
+    @Column(name = "email")
     private String email;
 
     @JsonBackReference
@@ -55,7 +74,9 @@ public class Employee extends AuditModel {
     @OneToMany(mappedBy = "reportsTo")
     private List<Employee> employees;
 
-    @Column(name = "jobTitle", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "jobTitle")
     private String jobTitle;
 
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.rest.order.exception.InvalidInputException;
@@ -28,6 +29,7 @@ public class OrderService {
     public Optional<Order> get(Integer orderNumber) {
         if (null == orderNumber)
             throw new InvalidInputException("Invalid Order Number");
+
         return orderRepository.findById(orderNumber);
     }
 
@@ -53,7 +55,7 @@ public class OrderService {
 
     public List<OrderCustomerDTO> get(String customerNameLike, Date fromDate, Date toDate) {
         List<OrderCustomerDTO> list = orderRepository.fetchCustomerOrders(customerNameLike);
-        list.forEach(l -> System.out.println(l));
+        // list.forEach(l -> System.out.println(l));
         return list;
     }
 
@@ -76,6 +78,7 @@ public class OrderService {
         thisOrder.setShippedDate(order.getShippedDate());
         thisOrder.setStatus(order.getStatus());
         thisOrder.setComments(order.getComments());
+        thisOrder.setOrderDetailList(order.getOrderDetailList());
         return orderRepository.save(thisOrder);
     }
 }

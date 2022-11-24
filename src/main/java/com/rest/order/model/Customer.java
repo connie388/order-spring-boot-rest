@@ -7,15 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.AccessLevel;
 
 @ToString
 @Setter
@@ -32,33 +34,50 @@ public class Customer extends AuditModel {
     @Column(name = "customerNumber", nullable = false)
     private Integer customerNumber;
 
-    @Column(name = "customerName", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "customerName")
     private String customerName;
 
-    @Column(name = "contactLastName", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "contactLastName")
     private String contactLastName;
 
-    @Column(name = "contactFirstName", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "contactFirstName")
     private String contactFirstName;
 
-    @Column(name = "phone", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "addressLine1", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "addressLine1")
     private String addressLine1;
 
-    @Column(name = "addressLine2", length = 50)
+    @Size(max = 50)
+    @Column(name = "addressLine2")
     private String addressLine2;
 
-    @Column(name = "city", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "state", length = 50)
+    @Size(max = 50)
+    @Column(name = "state")
     private String state;
 
+    @Size(max = 15)
     @Column(name = "postalCode", length = 15)
     private String postalCode;
 
+    @NotNull
+    @Size(max = 50)
     @Column(name = "country", length = 50, nullable = false)
     private String country;
 

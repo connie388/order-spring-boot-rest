@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,13 +31,19 @@ import lombok.ToString;
 @Table(name = "products")
 public class Product extends AuditModel {
     @Id
-    @Column(name = "productCode", nullable = false, length = 15)
+    @NotNull
+    @Size(max = 15)
+    @Column(name = "productCode")
     private String productCode;
 
-    @Column(name = "productName", nullable = false, length = 70)
+    @NotNull
+    @Size(max = 70)
+    @Column(name = "productName")
     private String productName;
 
-    @Column(name = "productLine", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "productLine")
     private String productLine;
 
     @JsonBackReference
@@ -43,22 +51,31 @@ public class Product extends AuditModel {
     @JoinColumn(name = "productLine", nullable = false, insertable = false, updatable = false)
     private ProductLine prodLine;
 
-    @Column(name = "productScale", nullable = false, length = 10)
+    @NotNull
+    @Size(max = 10)
+    @Column(name = "productScale")
     private String productScale;
 
-    @Column(name = "productVendor", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "productVendor")
     private String productVendor;
 
-    @Column(name = "productDescription", nullable = false, length = 4000)
+    @NotNull
+    @Size(max = 4000)
+    @Column(name = "productDescription")
     private String productDesc;
 
-    @Column(name = "quantityInStock", nullable = false)
+    @NotNull
+    @Column(name = "quantityInStock")
     private Integer quantityInStock;
 
-    @Column(name = "buyPrice", nullable = false)
+    @NotNull
+    @Column(name = "buyPrice")
     private BigDecimal buyPrice;
 
-    @Column(name = "MSRP", nullable = false)
+    @NotNull
+    @Column(name = "MSRP")
     private BigDecimal msrp;
 
     // Define this so that findAll or findById will get

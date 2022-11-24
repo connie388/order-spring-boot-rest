@@ -11,6 +11,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -32,17 +34,22 @@ import lombok.ToString;
 @Table(name = "payments")
 public class Payment extends AuditModel {
     @Id
-    @Column(name = "customerNumber", nullable = false)
+    @NotNull
+    @Column(name = "customerNumber")
     private Integer customerNumber;
 
+    @NotNull
+    @Size(max = 50)
     @Id
-    @Column(name = "checkNumber", nullable = false, length = 50)
+    @Column(name = "checkNumber")
     private String checkNumber;
 
-    @Column(name = "paymentDate", nullable = false)
+    @NotNull
+    @Column(name = "paymentDate")
     private Date paymentDate;
 
-    @Column(name = "amount", nullable = false)
+    @NotNull
+    @Column(name = "amount")
     private BigDecimal amount;
 
     @JsonBackReference

@@ -40,10 +40,11 @@ public class OrderController {
         return new ResponseEntity<Optional<Order>>(orderService.get(orderNumber), HttpStatus.OK);
     }
 
-    @GetMapping("/order/{status}")
+    @GetMapping("/order/status/{status}")
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<List<Order>> get(@PathVariable String status) {
-        return new ResponseEntity<List<Order>>(orderService.get(status), HttpStatus.OK);
+        return new ResponseEntity<List<Order>>(orderService.get(status),
+                HttpStatus.OK);
     }
 
     @GetMapping("/order/{fromDate}/{toDate}")

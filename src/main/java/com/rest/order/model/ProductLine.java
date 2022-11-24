@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,9 +29,12 @@ import lombok.AccessLevel;
 @Table(name = "productlines")
 public class ProductLine extends AuditModel {
   @Id
-  @Column(name = "productLine", nullable = false, length = 50)
+  @NotNull
+  @Size(max = 50)
+  @Column(name = "productLine")
   private String productLine;
 
+  @Size(max = 4000)
   @Column(name = "textDescription", length = 4000)
   private String textDesc;
 

@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -32,26 +34,38 @@ public class Office extends AuditModel {
     @Column(name = "officeCode", nullable = false, length = 10)
     private String officeCode;
 
-    @Column(name = "city", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "phone", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "addressLine1", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "addressLine1")
     private String addressLine1;
 
-    @Column(name = "addressLine2", length = 50)
+    @Size(max = 50)
+    @Column(name = "addressLine2")
     private String addressLine2;
 
-    @Column(name = "state", length = 50)
+    @Size(max = 50)
+    @Column(name = "state")
     private String state;
 
-    @Column(name = "country", length = 50, nullable = false)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "country")
     private String country;
-    @Column(name = "postalCode", length = 15, nullable = false)
-    private String postalCode;
 
+    @NotNull
+    @Size(max = 15)
+    @Column(name = "postalCode")
+    private String postalCode;
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
