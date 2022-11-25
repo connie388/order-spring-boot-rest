@@ -1,12 +1,12 @@
 package com.rest.order.repository;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Date;
 
 import com.rest.order.model.Order;
 
 public interface OrderRepositoryCustom {
-    List<Order> findOrderByRequiredDateRange( Date fromDate, Date toDate);
-    List<Order> findOrderByIdAndRequiredDateRange( Integer id, Date fromDate, Date toDate);
+    List<Order> findOrderByRequiredDateRange( LocalDate fromDate, LocalDate toDate);
+    List<Order> findOrderByIdAndRequiredDateRange( Integer id, LocalDate fromDate, LocalDate toDate);
 
 }

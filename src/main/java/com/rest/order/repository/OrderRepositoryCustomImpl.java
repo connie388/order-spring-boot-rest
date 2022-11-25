@@ -1,6 +1,6 @@
 package com.rest.order.repository;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 import com.rest.order.model.Order;
 
 public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
@@ -17,7 +18,7 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<Order> findOrderByRequiredDateRange(Date fromDate, Date toDate) {
+    public List<Order> findOrderByRequiredDateRange(LocalDate fromDate, LocalDate toDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
         Root<Order> root = criteriaQuery.from(Order.class);
@@ -31,19 +32,19 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
 
     @Override
     public List<Order> findOrderByIdAndRequiredDateRange(Integer customerNo,
-            Date fromDate,
-            Date toDate) {
+            LocalDate fromDate,
+            LocalDate toDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
         Root<Order> root = criteriaQuery.from(Order.class);
         Predicate conditions = criteriaBuilder.equal(root.get("customerNumber"), customerNo);
 
         if (fromDate != null) {
-            Predicate startPredicate = criteriaBuilder.greaterThanOrEqualTo(root.<Date>get("orderDate"), fromDate);
+            Predicate startPredicate = criteriaBuilder.greaterThanOrEqualTo(root.<LocalDate>get("orderDate"), fromDate);
             conditions = criteriaBuilder.and(conditions, startPredicate);
         }
         if (toDate != null) {
-            Predicate endPredicate = criteriaBuilder.lessThanOrEqualTo(root.<Date>get("orderDate"), toDate);
+            Predicate endPredicate = criteriaBuilder.lessThanOrEqualTo(root.<LocalDate>get("orderDate"), toDate);
             conditions = criteriaBuilder.and(conditions, endPredicate);
         }
 

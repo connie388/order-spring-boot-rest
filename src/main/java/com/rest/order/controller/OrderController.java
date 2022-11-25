@@ -1,6 +1,6 @@
 package com.rest.order.controller;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,24 +49,25 @@ public class OrderController {
 
     @GetMapping("/order/{fromDate}/{toDate}")
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<List<Order>> get(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate) {
+    public ResponseEntity<List<Order>> get(
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
         return new ResponseEntity<List<Order>>(orderService.get(fromDate, toDate), HttpStatus.OK);
     }
 
     @GetMapping("{customerNo}/order")
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<List<Order>> get(@PathVariable Integer customerNo,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
         return new ResponseEntity<List<Order>>(orderService.get(customerNo, fromDate, toDate), HttpStatus.OK);
     }
 
     @GetMapping("/order/customer")
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<List<OrderCustomerDTO>> get(@RequestParam(required = false) String customerNameLike,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
         return new ResponseEntity<List<OrderCustomerDTO>>(orderService.get(customerNameLike, fromDate, toDate),
                 HttpStatus.OK);
     }

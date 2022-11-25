@@ -1,6 +1,6 @@
 package com.rest.order.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -48,14 +48,14 @@ public class Order extends AuditModel {
 
     @NotNull
     @Column(name = "orderDate")
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @NotNull
     @Column(name = "requiredDate")
-    private Date requiredDate;
+    private LocalDate requiredDate;
 
     @Column(name = "shippedDate")
-    private Date shippedDate;
+    private LocalDate shippedDate;
 
     @NotNull
     @Size(max = 15)
@@ -69,8 +69,7 @@ public class Order extends AuditModel {
     @Column(name = "customerNumber")
     private int customerNumber;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customerNumber", insertable = false, updatable = false,
-    nullable = false)
+    @JoinColumn(name = "customerNumber", insertable = false, updatable = false, nullable = false)
     @JsonIgnore
     private Customer customer;
 

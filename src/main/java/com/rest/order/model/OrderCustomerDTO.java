@@ -1,5 +1,6 @@
 package com.rest.order.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,11 +23,11 @@ public class OrderCustomerDTO {
     private String customerName;
     private Integer orderNumber;
 
-    private Date orderDate;
+    private LocalDate orderDate;
 
-    private Date requiredDate;
+    private LocalDate requiredDate;
 
-    private Date shippedDate;
+    private LocalDate shippedDate;
 
     private String status;
 

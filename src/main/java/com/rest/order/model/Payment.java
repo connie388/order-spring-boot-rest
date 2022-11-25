@@ -1,7 +1,7 @@
 package com.rest.order.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,7 +46,7 @@ public class Payment extends AuditModel {
 
     @NotNull
     @Column(name = "paymentDate")
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     @NotNull
     @Column(name = "amount")

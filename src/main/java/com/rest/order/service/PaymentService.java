@@ -1,6 +1,6 @@
 package com.rest.order.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -24,28 +24,27 @@ public class PaymentService {
         return paymentRepository.findAll();
     }
 
-    public List<Payment> get(Integer customerNumber) {
-        if (null == customerNumber)
-            throw new InvalidInputException("Invalid Customer Number");
-        return paymentRepository.findByCustomerNumber(customerNumber);
-    }
+    // public List<Payment> get(Integer customerNumber) {
+    // if (null == customerNumber)
+    // throw new InvalidInputException("Invalid Customer Number");
+    // return paymentRepository.findByCustomerNumber(customerNumber);
+    // }
 
-    public Payment get(Integer customerNumber, String checkNumber) {
-        if (null == customerNumber)
-            throw new InvalidInputException("Invalid Customer Number");
-        if (null == checkNumber)
-            throw new InvalidInputException("Invalid Check Number");
-        return paymentRepository.findPaymentByCustomerNumberAndCheckNumber(customerNumber, checkNumber);
-    }
+    // public Payment get(Integer customerNumber, String checkNumber) {
+    // if (null == customerNumber)
+    // throw new InvalidInputException("Invalid Customer Number");
+    // if (null == checkNumber)
+    // throw new InvalidInputException("Invalid Check Number");
+    // return
+    // paymentRepository.findPaymentByCustomerNumberAndCheckNumber(customerNumber,
+    // checkNumber);
+    // }
 
-    public List<Payment> get(Integer customerNumber, Date fromDate, Date toDate) {
+    public List<Payment> get(Integer customerNumber, LocalDate fromDate, LocalDate toDate, String checkNumber) {
         if (null == customerNumber)
             throw new InvalidInputException("Invalid Customer Number.");
-        if (null == fromDate)
-            throw new InvalidInputException("Invalid Start Date.");
-        if (null == toDate)
-            throw new InvalidInputException("Invalid To Date.");
-        return paymentRepository.findOutstandingPaymentsByCustomer(customerNumber, fromDate, toDate);
+        return paymentRepository.findPaymentsByCustomerDateRange(customerNumber, fromDate, toDate, checkNumber);
+        // customerNumber, fromDate, toDate, checkNumber);
     }
 
     public Payment add(Payment payment) {

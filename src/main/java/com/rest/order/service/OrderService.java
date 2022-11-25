@@ -1,13 +1,12 @@
 package com.rest.order.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.rest.order.exception.InvalidInputException;
@@ -39,7 +38,7 @@ public class OrderService {
         return orderRepository.findOrderByStatus(status);
     }
 
-    public List<Order> get(Date fromDate, Date toDate) {
+    public List<Order> get(LocalDate fromDate, LocalDate toDate) {
         if (null == fromDate)
             throw new InvalidInputException("Invalid From Date.");
         if (null == toDate)
@@ -47,14 +46,14 @@ public class OrderService {
         return orderRepository.findOrderByRequiredDateRange(fromDate, toDate);
     }
 
-    public List<Order> get(Integer id, Date fromDate, Date toDate) {
+    public List<Order> get(Integer id, LocalDate fromDate, LocalDate toDate) {
         if (null == id)
             throw new InvalidInputException("Invalid Customer Id");
         return orderRepository.findOrderByIdAndRequiredDateRange(id, fromDate, toDate);
     }
 
-    public List<OrderCustomerDTO> get(String customerNameLike, Date fromDate, Date toDate) {
-        List<OrderCustomerDTO> list = orderRepository.fetchCustomerOrders(customerNameLike);
+    public List<OrderCustomerDTO> get(String customerNameLike, LocalDate fromDate, LocalDate toDate) {
+        List<OrderCustomerDTO> list = orderRepository.fetchCustomerOrders(customerNameLike, fromDate, toDate);
         // list.forEach(l -> System.out.println(l));
         return list;
     }

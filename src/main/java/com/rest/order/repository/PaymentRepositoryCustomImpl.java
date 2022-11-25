@@ -1,6 +1,6 @@
 package com.rest.order.repository;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,7 +18,8 @@ public class PaymentRepositoryCustomImpl implements PaymentRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<Payment> findOutstandingPaymentsByCustomer(Integer customerNumber, Date fromDate, Date toDate) {
+    public List<Payment> findPaymentsByCustomerDateRange(Integer customerNumber, LocalDate fromDate,
+            LocalDate toDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Payment> criteriaQuery = criteriaBuilder.createQuery(Payment.class);
         Root<Payment> payment = criteriaQuery.from(Payment.class);
