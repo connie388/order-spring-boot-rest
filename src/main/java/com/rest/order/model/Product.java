@@ -64,7 +64,7 @@ public class Product extends AuditModel {
     @NotNull
     @Size(max = 4000)
     @Column(name = "productDescription")
-    private String productDesc;
+    private String productDescription;
 
     @NotNull
     @Column(name = "quantityInStock")
@@ -75,7 +75,7 @@ public class Product extends AuditModel {
     private BigDecimal buyPrice;
 
     @NotNull
-    @Column(name = "MSRP")
+    @Column(name = "msrp")
     private BigDecimal msrp;
 
     // Define this so that findAll or findById will get

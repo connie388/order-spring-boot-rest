@@ -75,7 +75,7 @@ public class ProductService {
         _product.setProductName(productInfo.getProductName());
         _product.setProductScale(productInfo.getProductScale());
         _product.setProductVendor(productInfo.getProductVendor());
-        _product.setProductDesc(productInfo.getProductDesc());
+        _product.setProductDescription(productInfo.getProductDescription());
         _product.setQuantityInStock(productInfo.getQuantityInStock());
         _product.setBuyPrice(productInfo.getBuyPrice());
         _product.setMsrp(productInfo.getMsrp());

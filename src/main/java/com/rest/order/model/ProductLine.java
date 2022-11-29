@@ -36,10 +36,10 @@ public class ProductLine extends AuditModel {
 
   @Size(max = 4000)
   @Column(name = "textDescription", length = 4000)
-  private String textDesc;
+  private String textDescription;
 
   @Column(name = "htmlDescription", columnDefinition = "MEDIUMTEXT")
-  private String htmlDesc;
+  private String htmlDescription;
 
   @Column(name = "imageUrl")
   @Lob

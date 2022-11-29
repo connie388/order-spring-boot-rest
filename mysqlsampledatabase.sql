@@ -7708,7 +7708,7 @@ CREATE TABLE `products` (
   `productDescription` text NOT NULL,
   `quantityInStock` smallint(6) NOT NULL,
   `buyPrice` decimal(10,2) NOT NULL,
-  `MSRP` decimal(10,2) NOT NULL,
+  `msrp` decimal(10,2) NOT NULL,
    `created_at`  date  DEFAULT (CURRENT_DATE),
   `updated_at`  date  DEFAULT (CURRENT_DATE),
   PRIMARY KEY (`productCode`),
@@ -7718,7 +7718,7 @@ CREATE TABLE `products` (
 
 /*Data for the table `products` */
 
-insert  into `products`(`productCode`,`productName`,`productLine`,`productScale`,`productVendor`,`productDescription`,`quantityInStock`,`buyPrice`,`MSRP`) values 
+insert  into `products`(`productCode`,`productName`,`productLine`,`productScale`,`productVendor`,`productDescription`,`quantityInStock`,`buyPrice`,`msrp`) values 
 
 ('S10_1678','1969 Harley Davidson Ultimate Chopper','Motorcycles','1:10','Min Lin Diecast','This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.',7933,'48.81','95.70'),
 

@@ -52,8 +52,8 @@ public class ProductLineService {
         ProductLine _productLine = productLineRepository.findByProductLine(productLine);
         if (_productLine == null)
             throw new ResourceNotFoundException("Product Line " + productLine + " not found.");
-        _productLine.setTextDesc(productLineInfo.getTextDesc());
-        _productLine.setHtmlDesc(productLineInfo.getHtmlDesc());
+        _productLine.setTextDescription(productLineInfo.getTextDescription());
+        _productLine.setHtmlDescription(productLineInfo.getHtmlDescription());
         _productLine.setImageUrl(productLineInfo.getImageUrl());
         return productLineRepository.save(_productLine);
     }
